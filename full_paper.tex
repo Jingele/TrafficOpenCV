@@ -18,7 +18,7 @@
 
 \begin{abstract}
 
-In this paper, we present a camera based system(CBS-TFM) to count automotive vehicles for traffic flow analysis use.  The system employs the method of background subtraction by comparing differences between foreground and background. The background model is initialed by averaging first 50 frames, and adapted to environment change by introducing an adapting parameter $\lambda$. Compared to state-of-art method, it is more robust, adaptive and economical.
+In this paper, we present a camera based system(Traf) to count automotive vehicles for traffic flow analysis use. The system employs the method of background subtraction by comparing differences between foreground and background. The background model is initialed by averaging first 50 frames, and adapted to environment change by introducing an adapting parameter $\lambda$. Compared to state-of-art method, it is more robust, adaptive and economical.
 
 \end{abstract}
 
@@ -32,7 +32,7 @@ In this paper, we present a camera based system(CBS-TFM) to count automotive veh
 % how?
 \section{System Design}
 	\subsection{Overview}
-	The system consists of 3 main modules, video collector, vehicle counter and flow analyzer as Fig \ref{sysDiagram}. Video collector is designed to collect the original video sources and transform them into a unified format for further use. Flow analyzer is designed to calculate the result and provide suggestion for traffic use. The vehicle counter is the core module of the system, which further divided into 4 steps as, detector, tracker, follower and generator. 
+	The system consists of 3 main modules, video collector, vehicle counter and flow analyzer as Fig \ref{sysDiagram}. Video collector is designed to collect the original video sources and transform them into a unified format for further use. Flow analyzer is designed to calculate the result and provide suggestion for traffic use. The vehicle counter is the core module of the system, which is further divided into 4 steps as, detector, tracker, follower and generator. 
 	
 	\begin{figure}[!h]
 	\includegraphics[width=0.8\linewidth]{lena.jpg} 
@@ -42,7 +42,11 @@ In this paper, we present a camera based system(CBS-TFM) to count automotive veh
 	
 	%============================================================================
 	\subsection{Background Subtraction}
-	
+	As the monitoring camera is deployed with a fixed position, videos collected from this kind of devices would have a stable background. And the automobile vehicles forms the foreground motions. Hence, content of each frame image contains two parts, foreground and background. To detect the vehicles, we utilize background subtraction method, which can be described as:
+	\begin{equation}
+	M_{mask} = F_{foreground}  - B_{background}
+	\end{equation}
+	Where $F_{foreground}$and $B_{background}$ are derived from foreground and background images correspondingly, and $M_{mask}$ is the mask of detected foreground mask.
 	\subsection{Background Model}
 	\subsection{Motion Detection and Tracking}
 	\subsection{Traffic Flow Analysis}
