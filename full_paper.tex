@@ -32,12 +32,13 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 % how?
 \section{System Design}
 	\subsection{Overview}
-	The system consists of 3 main modules, video collector, vehicle counter and flow analyzer as Fig \ref{sysDiagram}. Video collector is designed to collect the original video sources and transform them into a unified format for further use. Flow analyzer is designed to calculate the result and provide suggestion for traffic use. The vehicle counter is the core module of the system, which is further divided into 4 steps as, detector, tracker, follower and generator. 
+	The system consists of 3 main modules, video collector, vehicle counter and flow analyzer as Fig \ref{fig:sysDiagram}. Video collector is designed to collect the original video sources and transform them into a unified format for further use. Flow analyzer is designed to calculate the result and provide suggestion for traffic use. The vehicle counter is the core module of the system, which is further divided into 4 steps as, detector, tracker, follower and generator. 
 	
 	\begin{figure}[!h]
-	\includegraphics[width=0.8\linewidth]{lena.jpg} 
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/lena.jpg} 
 	\caption{System diagram}
-	\label{sysDiagram}
+	\label{fig:sysDiagram}
 	\end{figure}
 	
 	%============================================================================
@@ -46,7 +47,17 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\begin{equation}
 	M_{mask} = F_{foreground}  - B_{background}
 	\end{equation}
-	Where $F_{foreground}$and $B_{background}$ are derived from foreground and background images correspondingly, and $M_{mask}$ is the mask of detected foreground mask.
+	Where $F_{foreground}$ and $B_{background}$ are derived from foreground and background images correspondingly, and $M_{mask}$ is the mask of detected foreground mask.
+	
+	Frame images from video usually have more than one channel, and they may vary from different types and sizes. This makes it hard or impossible for directing subtraction calculation. Hence, we introduce a collector module to unify the original frame images, as Fig. \ref{fig:unifyDiagram}
+	\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/lena.jpg} 
+	\caption{Frame image unifying}
+	\label{fig:unifyDiagram}
+	\end{figure}
+		
+	
 	\subsection{Background Model}
 	\subsection{Motion Detection and Tracking}
 	\subsection{Traffic Flow Analysis}
