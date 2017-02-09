@@ -31,6 +31,7 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 
 % how?
 \section{System Design}
+	%============================================================================
 	\subsection{Overview}
 	The system consists of 3 main modules, video collector, vehicle counter and flow analyzer as Fig \ref{fig:sysDiagram}. Video collector is designed to collect the original video sources and transform them into a unified format for further use. Flow analyzer is designed to calculate the result and provide suggestion for traffic use. The vehicle counter is the core module of the system, which is further divided into 4 steps as, detector, tracker, follower and generator. 
 	
@@ -41,25 +42,65 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\label{fig:sysDiagram}
 	\end{figure}
 	
+	
 	%============================================================================
 	\subsection{Background Subtraction}
 	As the monitoring camera is deployed with a fixed position, videos collected from this kind of devices would have a stable background. And the automobile vehicles forms the foreground motions. Hence, content of each frame image contains two parts, foreground and background. To detect the vehicles, we utilize background subtraction method, which can be described as:
 	\begin{equation}
-	M_{mask} = F_{foreground}  - B_{background}
+	F_{foreground} = I_{frame\; image}  - B_{background}
+	\label{eq:backgroundSubtraction}
 	\end{equation}
-	Where $F_{foreground}$ and $B_{background}$ are derived from foreground and background images correspondingly, and $M_{mask}$ is the mask of detected foreground mask.
+	Where $I_{frame image}$ and $B_{background}$ are derived from frame images and background images correspondingly, and $F_{foreground}$ is the detected foreground mask.
 	
-	Frame images from video usually have more than one channel, and they may vary from different types and sizes. This makes it hard or impossible for directing subtraction calculation. Hence, we introduce a collector module to unify the original frame images, as Fig. \ref{fig:unifyDiagram}
+	Frame images from video usually have more than one channel, and they may vary from different types and sizes. This makes it hard or impossible for directing subtraction calculation. Hence, we introduce a collector module to unify the original frame images, as Fig.\ref{fig:unifyDiagram}
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{figures/lena.jpg} 
+	\includegraphics[width=0.8\linewidth]{figures/jena.jpg} 
 	\caption{Frame image unifying}
 	\label{fig:unifyDiagram}
 	\end{figure}
 		
 	
+	
+	%============================================================================
 	\subsection{Background Model}
+	Frame images consists of two parts, foreground and background. If there were no automobile vehicles within the frame image, the background is hence equal to the frame image. But this is not always the case, as the automobile vehicles are running on the road from time to time. Even worse, background may change due to light, wind and so on. So a steady background model is essential to the robustness of the system.
+	Traf first builds the initial background model by averaging first 50 frame images. The result is shown as Fig \ref{fig:backgroundModel}.
+	\begin{figure}[!h]
+	\centering
+	\includegraphics[width=1\linewidth]{figures/jena.jpg} 
+	\caption{Frame image unifying}
+	\label{fig:backgroundModel}
+	\end{figure}
+	 	
+	To adapt to environment change, Traf employs an adaptive parameter $\lambda$ as equation \ref{eq:adaption}.
+	\begin{equation}
+	M_{t} = (1-\lambda)M_{t-1} + \lambda B_{t}
+	\label{eq:adaption}
+	\end{equation}
+	where $M_t$ and $M_{t-1}$ are the background model at time $t$ and $t-1$, $B_{t}$ is the background derived from frame image at time $t$.
+	\begin{eqnarray}	
+	F_{t}=&I_{t} - M_{t-1}	\\
+	B_{t}=&sign(F_{t})*M_{t-1}+(1-sign(F_{t}))I_{t-1}
+	\end{eqnarray}
+Item $B_{t}$ is built from the mask of foreground and background model at time $t$. The mask is derived from a sign function as:
+	\begin{equation}
+	  y=sign(F)=\left\{
+	   \begin{aligned}
+	   	1, F \geq \epsilon \\
+	   	0, F < \epsilon \\
+	   \end{aligned}
+	   \right.
+	\end{equation}		
+		
+	
+	
+	%============================================================================
 	\subsection{Motion Detection and Tracking}
+	
+	
+	
+	%============================================================================
 	\subsection{Traffic Flow Analysis}
 	
 	
