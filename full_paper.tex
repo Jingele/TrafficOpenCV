@@ -47,10 +47,10 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\subsection{Background Subtraction}
 	As the monitoring camera is deployed with a fixed position, videos collected from this kind of devices would have a stable background. And the automobile vehicles forms the foreground motions. Hence, content of each frame image contains two parts, foreground and background. To detect the vehicles, we utilize background subtraction method, which can be described as:
 	\begin{equation}
-	F_{foreground} = I_{frame\; image}  - B_{background}
+	F = I  - B
 	\label{eq:backgroundSubtraction}
 	\end{equation}
-	Where $I_{frame image}$ and $B_{background}$ are derived from frame images and background images correspondingly, and $F_{foreground}$ is the detected foreground mask.
+	Where $I$ is derived from frame image, $B$ is the corresponding background, and $F$ is hence the detected foreground.
 	
 	Frame images from video usually have more than one channel, and they may vary from different types and sizes. This makes it hard or impossible for directing subtraction calculation. Hence, we introduce a collector module to unify the original frame images, as Fig.\ref{fig:unifyDiagram}
 	\begin{figure}[!h]
@@ -59,9 +59,26 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\caption{Frame image unifying}
 	\label{fig:unifyDiagram}
 	\end{figure}
+	
+	After unifying operation, we do background subtraction, and get the foreground image $F$ as Eq.\ref{eq:backgroundSubtraction}. $F$ is mainly consisted of 2 area, the black and the gray. They stands for the background and the foreground separately. However, the gray parts is distributed all the image, making it hard for automobile vehicle detection. Ideally, the gray area of $F$ should gather together as an island. But due to camera performance, environment disturbance and so on, the image carries noise. Even worse,some parts of automobile vehicle may have coincident color with the background overlapping, this would results in gabs and separations.
+	To solve the problem above, we take following strategies as Fig.\ref{fig:preDetection}. First, we employs a Guassian filter with 4*4 size window to reduce noise. Second, we transform the result into binary image with Eq.\ref{eq:foreMask}, the result $Mask$ may consists of several neighbor areas. To make it a nice mask for describing the position of automobile vehicle, we employed dilation. Next, we applied erosion for a better result.
+	\begin{figure}[!h]
+	\centering
+	\includegraphics[width=0.8\linewidth]{figures/jena.jpg} 
+	\caption{Frame image pre-Detection}
+	\label{fig:preDetection}
+	\end{figure}
+	
+	\begin{equation}
+	  mask=sign(v)=\left\{
+	   \begin{aligned}
+	   	1, v \geq \delta \\
+	   	0, v < \delta \\
+	   \end{aligned}
+	   \right.
+	   \label{eq:foreMask}
+	\end{equation}		
 		
-	
-	
 	%============================================================================
 	\subsection{Background Model}
 	Frame images consists of two parts, foreground and background. If there were no automobile vehicles within the frame image, the background is hence equal to the frame image. But this is not always the case, as the automobile vehicles are running on the road from time to time. Even worse, background may change due to light, wind and so on. So a steady background model is essential to the robustness of the system.
@@ -81,7 +98,7 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	where $M_t$ and $M_{t-1}$ are the background model at time $t$ and $t-1$, $B_{t}$ is the background derived from frame image at time $t$.
 	\begin{eqnarray}	
 	F_{t}=&I_{t} - M_{t-1}	\\
-	B_{t}=&sign(F_{t})*M_{t-1}+(1-sign(F_{t}))I_{t-1}
+	B_{t}=&y(F_{t})*M_{t-1}+(1-y(F_{t}))I_{t}
 	\end{eqnarray}
 Item $B_{t}$ is built from the mask of foreground and background model at time $t$. The mask is derived from a sign function as:
 	\begin{equation}
