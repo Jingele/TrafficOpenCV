@@ -37,7 +37,7 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=1\linewidth]{figures/lena.jpg} 
+	\includegraphics[width=0.8\linewidth]{figures/lena.jpg} 
 	\caption{System diagram:Video collector - Vehicle counter - Flow analyzer}
 	\label{fig:sysDiagram}
 	\end{figure}
@@ -61,11 +61,19 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\end{figure}
 	
 	After unifying operation, we do background subtraction, and get the foreground image $F$ as Eq.\ref{eq:backgroundSubtraction}. $F$ is mainly consisted of 2 area, the black and the gray. They stands for the background and the foreground separately. However, the gray parts is distributed all the image, making it hard for automobile vehicle detection. Ideally, the gray area of $F$ should gather together as an island. But due to camera performance, environment disturbance and so on, the image carries noise. Even worse,some parts of automobile vehicle may have coincident color with the background overlapping, this would results in gabs and separations.
-		
-	To solve the problem above, we take following strategies as Fig.\ref{fig:preDetection}. First, we employs a Guassian filter with 4*4 size window to reduce noise. Second, we transform the result into binary image with Eq.\ref{eq:foreMask}, the result $Mask$ may consists of several neighbor areas. To make it a nice mask for describing the position of automobile vehicle, we employed dilation. Next, we applied erosion for a better result.
+	\begin{equation}
+	  mask=sign(v)=\left\{
+	   \begin{aligned}
+	   	1, v \geq \delta \\
+	   	0, v < \delta \\
+	   \end{aligned}
+	   \right.
+	   \label{eq:foreMask}
+	\end{equation}		
+	To solve the problem above, we take following strategies as Fig.\ref{fig:preDetection}. First, we employs a Guassian filter with 4*4 size window to reduce noise. Second, we transform the result into binary image with Eq.\ref{eq:foreMask}, the result $Mask$ may consists of several neighbor areas. To make it a nice mask for describing automobile vehicles' shape and position, we employed dilation. Finally, we applied erosion for a better result. 
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=1\linewidth]{figures/lena.jpg} 
+	\includegraphics[width=0.8\linewidth]{figures/lena.jpg} 
 	\caption{Frame image pre-Detection diagram}
 	\label{fig:preDetection}
 	\end{figure}
@@ -76,19 +84,12 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\caption{Guassian Filter - Binary Image - Dilation - Erosion}
 	\label{fig:preDetection}
 	\end{figure}
-	
-	\begin{equation}
-	  mask=sign(v)=\left\{
-	   \begin{aligned}
-	   	1, v \geq \delta \\
-	   	0, v < \delta \\
-	   \end{aligned}
-	   \right.
-	   \label{eq:foreMask}
-	\end{equation}		
+			
 		
 	\subsection{Motion Detection}
-	Video collector provides foreground image mask $Mask$, which is further utilized for motion detection. After preview operations, $Mask$ is a binary image consists of white islands and black background. The islands have different areas and shape.	%============================================================================
+	Video collector provides foreground image mask $Mask$, which is further utilized for motion detection. After preview operations, $Mask$ is a binary image consists of white islands and black background. The islands have different areas and shape.	
+	
+	%============================================================================
 	\subsection{Background Model}
 	Frame images consists of two parts, foreground and background. If there were no automobile vehicles within the frame image, the background is hence equal to the frame image. But this is not always the case, as the automobile vehicles are running on the road from time to time. Even worse, background may change due to light, wind and so on. So a steady background model is essential to the robustness of the system.
 	Traf first builds the initial background model by averaging first 50 frame images. The result is shown as Fig \ref{fig:backgroundModel}.
@@ -117,8 +118,7 @@ Item $B_{t}$ is built from the mask of foreground and background model at time $
 	   	0, F < \epsilon \\
 	   \end{aligned}
 	   \right.
-	\end{equation}		
-		
+	\end{equation}			
 	
 	
 	%============================================================================
