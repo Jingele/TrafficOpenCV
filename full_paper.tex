@@ -85,17 +85,22 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\label{fig:preDetection}
 	\end{figure}
 			
-		
-	\subsection{Motion Detection}
-	Video collector provides foreground image mask $Mask$, which is further utilized for motion detection. After preview operations, $Mask$ is a binary image consists of white islands and black background. The islands have different areas and shape.	
 	
-	%============================================================================
+	\subsection{Motion}
+	After preview operations, $Mask$ becomes a binary image consists of white islands and black background. The white symbolizes vehicle cars within foreground. The following process is to identify these islands, or motion detection. To count the vehicle correctly, we need also to track each detected vehicles.
+	
+	\subsubsection{Detection}
+	We implement detection by detect the contour of the island, then we calculate the area of the island. Considering the size and the shape of a automobile vehicle, it's obviously that islands with small area should be expelled. After the vehicle has been detected, we draw a rectangular box to hold it for further identification and tracking.
+	
+	
+	\subsubsection{Tracking}
+	We employ Kalman-filter to tracking the detected car, this is done by building a moving model and estimating position for each frame.	%============================================================================
 	\subsection{Background Model}
 	Frame images consists of two parts, foreground and background. If there were no automobile vehicles within the frame image, the background is hence equal to the frame image. But this is not always the case, as the automobile vehicles are running on the road from time to time. Even worse, background may change due to light, wind and so on. So a steady background model is essential to the robustness of the system.
 	Traf first builds the initial background model by averaging first 50 frame images. The result is shown as Fig \ref{fig:backgroundModel}.
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=1\linewidth]{figures/jena.jpg} 
+	\includegraphics[width=0.6\linewidth]{figures/backGroundModel.jpg} 
 	\caption{Background model construction}
 	\label{fig:backgroundModel}
 	\end{figure}
@@ -121,11 +126,7 @@ Item $B_{t}$ is built from the mask of foreground and background model at time $
 	\end{equation}			
 	
 	
-	%============================================================================
-	\subsection{Motion Detection and Tracking}
-	
-	
-	
+
 	%============================================================================
 	\subsection{Traffic Flow Analysis}
 	
