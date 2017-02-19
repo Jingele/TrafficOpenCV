@@ -2,6 +2,7 @@
 
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{graphicx}
+\graphicspath{{/home/jingle/figures//}} %path to graphs
 \usepackage{subfigure}
 
 \usepackage{url}
@@ -37,7 +38,7 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{figures/lena.jpg} 
+	\includegraphics[width=0.8\linewidth]{lena.jpg} 
 	\caption{System diagram:Video collector - Vehicle counter - Flow analyzer}
 	\label{fig:sysDiagram}
 	\end{figure}
@@ -55,8 +56,15 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	Frame images from video usually have more than one channel, and they may vary from different types and sizes. This makes it hard or impossible for directing subtraction calculation. Hence, we introduce a collector module to unify the original frame images, as Fig.\ref{fig:unifyDiagram}
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=1\linewidth]{figures/jena.jpg} 
-	\caption{Frame image unifying:rgb - gray(uint8) - size}
+	\subfigure[Original frame image]{
+	\includegraphics[width=0.45\linewidth]{origin.jpg}}
+	\subfigure[64 bits float image]{
+	\includegraphics[width=0.45\linewidth]{64FC3.jpg}}
+	\subfigure[64 bits float image with single channel]{
+	\includegraphics[width=0.45\linewidth]{64FC1.jpg}}
+	\subfigure[8 bits unsigned char with single channel]{
+	\includegraphics[width=0.45\linewidth]{8UC1.jpg}}
+	\caption{unifying frame image,transform the original image to 8 bits unsigned char with single channel(8UC1)}
 	\label{fig:unifyDiagram}
 	\end{figure}
 	
@@ -73,14 +81,21 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	To solve the problem above, we take following strategies as Fig.\ref{fig:preDetection}. First, we employs a Guassian filter with 4*4 size window to reduce noise. Second, we transform the result into binary image with Eq.\ref{eq:foreMask}, the result $Mask$ may consists of several neighbor areas. To make it a nice mask for describing automobile vehicles' shape and position, we employed dilation. Finally, we applied erosion for a better result. 
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{figures/lena.jpg} 
-	\caption{Frame image pre-Detection diagram}
+	\includegraphics[width=0.8\linewidth]{lena.jpg} 
+	\caption{Diagram:Frame image pre-Detection diagram}
 	\label{fig:preDetection}
 	\end{figure}
 	
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=1\linewidth]{figures/jena.jpg} 
+	\subfigure[Filter Guassian noise]{
+	\includegraphics[width=0.45\linewidth]{guassian.jpg} }
+	\subfigure[Binary image]{
+	\includegraphics[width=0.45\linewidth]{binary.jpg} }
+	\subfigure[Dilation]{
+	\includegraphics[width=0.45\linewidth]{dilation.jpg} }
+	\subfigure[Erosion]{
+	\includegraphics[width=0.45\linewidth]{erosion.jpg} }
 	\caption{Guassian Filter - Binary Image - Dilation - Erosion}
 	\label{fig:preDetection}
 	\end{figure}
@@ -100,7 +115,7 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	Traf first builds the initial background model by averaging first 50 frame images. The result is shown as Fig \ref{fig:backgroundModel}.
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.6\linewidth]{figures/backGroundModel.jpg} 
+	\includegraphics[width=1\linewidth]{InitBackgroudFile.jpg} 
 	\caption{Background model construction}
 	\label{fig:backgroundModel}
 	\end{figure}
