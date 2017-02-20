@@ -61,8 +61,8 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\subfigure[8 bits unsigned char with single channel]{
 	\includegraphics[width=0.22\linewidth]{frameImgGry.jpg}}
 	\subfigure[background model]{\includegraphics[width=0.22\linewidth]{InitBackgroudFile.jpg}}	
-	\subfigure[Filter Guassian noise]{
-	\includegraphics[width=0.22\linewidth]{guassian.jpg} }
+	\subfigure[subtract background from frame image ]{
+	\includegraphics[width=0.22\linewidth]{rawMask.jpg} }
 	\caption{Unifying frame image:transform the original image to 8 bits unsigned char with single channel}
 	\label{fig:unifyDiagram}
 	\end{figure}
@@ -78,12 +78,12 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	   \label{eq:foreMask}
 	\end{equation}		
 	To solve the problem above, we take following strategies as Fig.\ref{fig:preDetection}. First, we employs a Guassian filter with 4*4 size window to reduce noise. Second, we transform the result into binary image with Eq.\ref{eq:foreMask}, the result $Mask$ may consists of several neighbor areas. To make it a nice mask for describing automobile vehicles' shape and position, we employed dilation. Finally, we applied erosion for a better result. 
-	\begin{figure}[!h]
-	\centering
-	\includegraphics[width=0.45\linewidth]{diagram2.png} 
-	\caption{Diagram:Frame image pre-Detection diagram}
-	\label{fig:preDetection}
-	\end{figure}
+%	\begin{figure}[!h]
+%	\centering
+%	\includegraphics[width=0.45\linewidth]{diagram2.png} 
+%	\caption{Diagram:Frame image pre-Detection diagram}
+%	\label{fig:preDetection}
+%	\end{figure}
 	
 	\begin{figure}[!h]
 	\subfigure[Filter Guassian noise]{
