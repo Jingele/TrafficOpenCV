@@ -1,8 +1,8 @@
-\documentclass[conference]{IEEEtran}
+\documentclass[draftclsnofoot,onecolumn]{IEEEtran}
 
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{graphicx}
-\graphicspath{{/home/jingle/figures//}} %path to graphs
+\graphicspath{{/home/jingle/figures/}} %path to graphs
 \usepackage{subfigure}
 
 \usepackage{url}
@@ -38,7 +38,7 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{lena.jpg} 
+	\includegraphics[width=0.8\linewidth]{diagram1.png} 
 	\caption{System diagram:Video collector - Vehicle counter - Flow analyzer}
 	\label{fig:sysDiagram}
 	\end{figure}
@@ -57,14 +57,13 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	\begin{figure}[!h]
 	\centering
 	\subfigure[Original frame image]{
-	\includegraphics[width=0.45\linewidth]{origin.jpg}}
-	\subfigure[64 bits float image]{
-	\includegraphics[width=0.45\linewidth]{64FC3.jpg}}
-	\subfigure[64 bits float image with single channel]{
-	\includegraphics[width=0.45\linewidth]{64FC1.jpg}}
+	\includegraphics[width=0.22\linewidth]{frameImg.jpg}}
 	\subfigure[8 bits unsigned char with single channel]{
-	\includegraphics[width=0.45\linewidth]{8UC1.jpg}}
-	\caption{unifying frame image,transform the original image to 8 bits unsigned char with single channel(8UC1)}
+	\includegraphics[width=0.22\linewidth]{frameImgGry.jpg}}
+	\subfigure[background model]{\includegraphics[width=0.22\linewidth]{InitBackgroudFile.jpg}}	
+	\subfigure[Filter Guassian noise]{
+	\includegraphics[width=0.22\linewidth]{guassian.jpg} }
+	\caption{Unifying frame image:transform the original image to 8 bits unsigned char with single channel}
 	\label{fig:unifyDiagram}
 	\end{figure}
 	
@@ -81,44 +80,37 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 	To solve the problem above, we take following strategies as Fig.\ref{fig:preDetection}. First, we employs a Guassian filter with 4*4 size window to reduce noise. Second, we transform the result into binary image with Eq.\ref{eq:foreMask}, the result $Mask$ may consists of several neighbor areas. To make it a nice mask for describing automobile vehicles' shape and position, we employed dilation. Finally, we applied erosion for a better result. 
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[width=0.8\linewidth]{lena.jpg} 
+	\includegraphics[width=0.45\linewidth]{diagram2.png} 
 	\caption{Diagram:Frame image pre-Detection diagram}
 	\label{fig:preDetection}
 	\end{figure}
 	
 	\begin{figure}[!h]
-	\centering
 	\subfigure[Filter Guassian noise]{
-	\includegraphics[width=0.45\linewidth]{guassian.jpg} }
+	\includegraphics[width=0.22\linewidth]{guassian.jpg} }
 	\subfigure[Binary image]{
-	\includegraphics[width=0.45\linewidth]{binary.jpg} }
+	\includegraphics[width=0.22\linewidth]{binary.jpg} }
 	\subfigure[Dilation]{
-	\includegraphics[width=0.45\linewidth]{dilation.jpg} }
+	\includegraphics[width=0.22\linewidth]{dilation.jpg} }
 	\subfigure[Erosion]{
-	\includegraphics[width=0.45\linewidth]{erosion.jpg} }
+	\includegraphics[width=0.22\linewidth]{erosion.jpg} }
+	\centering
 	\caption{Guassian Filter - Binary Image - Dilation - Erosion}
 	\label{fig:preDetection}
 	\end{figure}
-			
-	
-	\subsection{Motion}
-	After preview operations, $Mask$ becomes a binary image consists of white islands and black background. The white symbolizes vehicle cars within foreground. The following process is to identify these islands, or motion detection. To count the vehicle correctly, we need also to track each detected vehicles.
-	
-	\subsubsection{Detection}
-	We implement detection by detect the contour of the island, then we calculate the area of the island. Considering the size and the shape of a automobile vehicle, it's obviously that islands with small area should be expelled. After the vehicle has been detected, we draw a rectangular box to hold it for further identification and tracking.
-	
-	
-	\subsubsection{Tracking}
-	We employ Kalman-filter to tracking the detected car, this is done by building a moving model and estimating position for each frame.	%============================================================================
+
+
+
+
 	\subsection{Background Model}
 	Frame images consists of two parts, foreground and background. If there were no automobile vehicles within the frame image, the background is hence equal to the frame image. But this is not always the case, as the automobile vehicles are running on the road from time to time. Even worse, background may change due to light, wind and so on. So a steady background model is essential to the robustness of the system.
 	Traf first builds the initial background model by averaging first 50 frame images. The result is shown as Fig \ref{fig:backgroundModel}.
-	\begin{figure}[!h]
-	\centering
-	\includegraphics[width=1\linewidth]{InitBackgroudFile.jpg} 
-	\caption{Background model construction}
-	\label{fig:backgroundModel}
-	\end{figure}
+%	\begin{figure}[!h]
+%	\centering
+%	\includegraphics[width=0.4\linewidth]{InitBackgroudFile.jpg} 
+%	\caption{Background model construction}
+%	\label{fig:backgroundModel}
+%	\end{figure}
 	 	
 	To adapt to environment change, Traf employs an adaptive parameter $\lambda$ as equation \ref{eq:adaption}.
 	\begin{equation}
@@ -140,7 +132,18 @@ Item $B_{t}$ is built from the mask of foreground and background model at time $
 	   \right.
 	\end{equation}			
 	
+				
 	
+	\subsection{Motion}
+	After preview operations, $Mask$ becomes a binary image consists of white islands and black background. The white symbolizes vehicle cars within foreground. The following process is to identify these islands, or motion detection. To count the vehicle correctly, we need also to track each detected vehicles.
+	
+	\subsubsection{Detection}
+	We implement detection by detect the contour of the island, then we calculate the area of the island. Considering the size and the shape of a automobile vehicle, it's obviously that islands with small area should be expelled. After the vehicle has been detected, we draw a rectangular box to hold it for further identification and tracking.
+	
+	
+	\subsubsection{Tracking}
+	We employ Kalman-filter to tracking the detected car, this is done by building a moving model and estimating position for each frame.	%============================================================================
+
 
 	%============================================================================
 	\subsection{Traffic Flow Analysis}
