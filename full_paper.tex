@@ -18,8 +18,8 @@
 \author{fsb}
 
 \begin{abstract}
-
-In this paper, we present a camera based system(Traf) to count automotive vehicles for traffic flow analysis use. The system employs the method of background subtraction by comparing differences between foreground and background. The background model is initialed by averaging first 50 frames, and adapted to environment change by introducing an adapting parameter $\lambda$. Compared to state-of-art method, it is more robust, adaptive and economical.
+As the traffic jam is becoming a serious issue of urban life, collecting traffic parameters for traffic distribution is important and critical.
+In this paper, we present a camera based system(Traf) to count automotive vehicles for traffic flow analysis use. The system employs the method of background subtraction by comparing differences between foreground and background.The subtraction result is utilized to identify the position and the shape of vehicles. After unification and pre-treated. The background model is initialed by averaging first 50 frames, and adapted to environment change by introducing an adapting parameter $\lambda$. Compared to state-of-art method, it is more robust, adaptive and economical.
 
 \end{abstract}
 
@@ -28,10 +28,11 @@ In this paper, we present a camera based system(Traf) to count automotive vehicl
 % what and why ?
 \section{Introduction}
 %近年来，随着我国经济的发展，综合国力的不断提升，机动车保有量迅速增加，导致交通拥堵现象非常严重。交通管理的成本也越来越高，有效采集交通参数，合理分配道路资源是解决这些问题的关键。基于视频图像的车流量检测是采集交通参数的方法之一，它融合了计算机科学和通信等高新技术，具有信息含量丰富、成本低、通用性强等优点，有着广阔的应用前景。
-With the development of economy, automobile vehicles is increasing sharply, which brings many traffic jams and increases traffic management cost. One of the most effective ways to solve these problems is to gather the traffic parameters effectively and distribute the resources of road reasonably. The video image based algorithm utilizes computer vision technology and cyber physical system, providing an efficient and economical solution towards this issue.
+With the development of economy, automobile vehicles is increasing sharply, which brings many traffic jams and increases traffic management cost. One of the most effective ways to solve these problems is to gather the traffic parameters effectively and distribute the resources of road reasonably.\cite{Gettys90} The video image based algorithm utilizes computer vision technology and cyber physical system, providing an efficient and economical solution towards this issue.
 
 	Different from most rest methods, video image is capable to provide rich information, and it is easy to deploy to varies environment.Besides, the collected information is convenient to store and share, making it possible for traffic monitor, accident analysis and so on. What's more, video based method is friendly for further upgrading. While these advantages are hard to achieve by ultrasonic,infrared or magnetic performance.
 
+	Currently, there are lots of cameras on the road for traffic monitor, which can hence provide rich original video sources. Our system is designed to work on the video collecter by this kind of camera.
 %随着科技的迅速发展，车辆的检测技术也日趋多样化，并且也是作为整个交通行业研究领域的一项关键内容。现阶段被广泛应用的车辆检测技术包括：磁性检测技术、雷达检测技术、环形线圈检测技术、无线传感网络检测技术、超声波检测技术、红外线检测技术以及视频检测技术等。采用磁性检测技术对路面的寿命会产生很大的影响，在对其维护时也需要大量的人力、物力，同时还需要封闭道路。雷达检测技术无法像视频检测那样提供实时或是过后的视觉监控能力，无法直观的完成对路上交通情况的可视特点。环形线圈检测技术的缺点是在更换线圈时必须封闭道路，挖开路面，这样所造成的维护成本高并且容易塞车，同时也给维护人员带来一定的不安全因素。无线传感网络检测技术是通过无线传输信号，信号质量受外部环境影响很大，尤其是温度，可能导致数据的丢失和非线性失真。超声波检测技术的最大缺点是它的性能不稳定，也容易受外界环境的影响，包括天气和气流都会使它的检测效果大大下降。红外检测技术无法检测出运动目标的实际参数，如车辆的外形、车牌号以及型号，无法向我们反馈实际的视野效果。
 %基于视频的车流量检测技术在我国得到了广泛的推广，它是目前最有前景的一种车辆检测方法。它可以满足系统实时性、可靠性以及安全性的要求，并且采用了计算机视觉的方法使得到的数据有利于实现网络的共享和数据分析、处理。并且系统对视频图像的处理速度快，不需要无线传输，保障了数据的安全性，同时也提高了数据传输、处理的及时性。此外，基于视频的车流量检测系统的移植性高、集成度高，而且采用面向对象的编程，模块化的设计，有利于后期对系统进行扩展。
 %本系统研究并实现的主要内容是以在苏州高架桥上采集的车流量视频作为系统的输入样本，经过格式转换后再对视频图像进行预处理，通过技术手段完成对视频图像中运动车辆的检测、车辆的跟踪、车流量的统计以及车辆行驶轨迹逆行的判断，并实现对白天和夜间以及常见的不同天气状况下行驶在道路上的车辆检测。
@@ -45,7 +46,11 @@ With the development of economy, automobile vehicles is increasing sharply, whic
 	
 	\begin{figure}[!ht]
 	\centering
-	\includegraphics[width=0.4\linewidth]{diagram1.png} 
+	\subfigure{
+	\includegraphics[width=0.45\linewidth]{diagram1.png}}
+	\subfigure{
+	\includegraphics[width=0.45\linewidth]{diagram2.png} 
+	}
 	\caption{System diagram:Video collector - Vehicle counter - Flow analyzer}
 	\label{fig:sysDiagram}
 	\end{figure}
@@ -167,5 +172,7 @@ Item $B_{t}$ is built from the mask of foreground and background model at time $
 
 \section{Conclusion}
 
+\bibliographystyle{plain}
+\bibliography{cao}
 
 \end{document}
