@@ -1,8 +1,73 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{Gettys90}
-Jim Gettys, Phil Karlton, and Scott McGregor.
-\newblock The {X} window system, version 11.
-\newblock {\em Software Practice and Experience}, 20(S2), 1990.
+\bibitem{harrison2014cognitive}
+Joshua Harrison, Kurtulu{\c{s}} {\.I}zzeto{\u{g}}lu, Hasan Ayaz, Ben Willems,
+  Sehchang Hah, Ulf Ahlstrom, Hyun Woo, Patricia~A Shewokis, Scott~C Bunce, and
+  Banu Onaral.
+\newblock Cognitive workload and learning assessment during the implementation
+  of a next-generation air traffic control technology using functional
+  near-infrared spectroscopy.
+\newblock {\em IEEE Transactions on Human-Machine Systems}, 44(4):429--440,
+  2014.
+
+\bibitem{jo2014traffic}
+Youngtae Jo, Jinsup Choi, and Inbum Jung.
+\newblock Traffic information acquisition system with ultrasonic sensors in
+  wireless sensor networks.
+\newblock {\em International Journal of Distributed Sensor Networks},
+  10(5):961073, 2014.
+
+\bibitem{ma2016distribution}
+Mingming Ma, Shouyun Hu, Longsheng Wang, and Erwin Appel.
+\newblock The distribution process of traffic contamination on roadside surface
+  and the influence of meteorological conditions revealed by magnetic
+  monitoring.
+\newblock {\em Environmental monitoring and assessment}, 188(11):650, 2016.
+
+\bibitem{ni2013rgbd}
+Bingbing Ni, Gang Wang, and Pierre Moulin.
+\newblock Rgbd-hudaact: A color-depth video database for human daily activity
+  recognition.
+\newblock In {\em Consumer Depth Cameras for Computer Vision}, pages 193--208.
+  Springer, 2013.
+
+\bibitem{singla2014motion}
+Nishu Singla.
+\newblock Motion detection based on frame difference method.
+\newblock {\em International Journal of Information \& Computation Technology},
+  4(15):1559--1565, 2014.
+
+\bibitem{sobral2014comprehensive}
+Andrews Sobral and Antoine Vacavant.
+\newblock A comprehensive review of background subtraction algorithms evaluated
+  with synthetic and real videos.
+\newblock {\em Computer Vision and Image Understanding}, 122:4--21, 2014.
+
+\bibitem{sugiyama2008traffic}
+Yuki Sugiyama, Minoru Fukui, Macoto Kikuchi, Katsuya Hasebe, Akihiro Nakayama,
+  Katsuhiro Nishinari, Shin-ichi Tadaki, and Satoshi Yukawa.
+\newblock Traffic jams without bottlenecks—experimental evidence for the
+  physical mechanism of the formation of a jam.
+\newblock {\em New journal of physics}, 10(3):033001, 2008.
+
+\bibitem{timotheou2015distributed}
+Stelios Timotheou, Christos~G Panayiotou, and Marios~M Polycarpou.
+\newblock Distributed traffic signal control using the cell transmission model
+  via the alternating direction method of multipliers.
+\newblock {\em IEEE Transactions on Intelligent Transportation Systems},
+  16(2):919--933, 2015.
+
+\bibitem{yang2015construction}
+Jun Yang, Man-Woo Park, Patricio~A Vela, and Mani Golparvar-Fard.
+\newblock Construction performance monitoring via still images, time-lapse
+  photos, and video streams: Now, tomorrow, and the future.
+\newblock {\em Advanced Engineering Informatics}, 29(2):211--224, 2015.
+
+\bibitem{zaccaro2015assessing}
+Heather~N Zaccaro, Emily~C Carbone, Nishita Dsouza, Michelle~R Xu, Mary~C
+  Byrne, and John~D Kraemer.
+\newblock Assessing the reliability and validity of direct observation and
+  traffic camera streams to measure helmet and motorcycle use.
+\newblock {\em Injury prevention}, 21(6):415--417, 2015.
 
 \end{thebibliography}
